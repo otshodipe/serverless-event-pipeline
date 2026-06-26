@@ -1,0 +1,6 @@
+service: event-pipeline
+provider: {name: aws, runtime: nodejs20.x, region: us-east-1}
+functions:
+  ingest:
+    handler: handler.ingest
+    events: [{httpApi: {path: /events, method: post}}]

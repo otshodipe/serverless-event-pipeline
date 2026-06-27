@@ -1,6 +1,24 @@
 service: event-pipeline
-provider: {name: aws, runtime: nodejs20.x, region: us-east-1}
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 10
+  httpApi:
+    payload: "2.0"
+  environment:
+    EVENTS_TABLE_NAME: ${self:service}-events-${sls:stage}
+
 functions:
   ingest:
     handler: handler.ingest
-    events: [{httpApi: {path: /events, method: post}}]
+    description: Validate and accept inbound event payloads.
+    events:
+      - httpApi:
+          path: /events
+          method: post

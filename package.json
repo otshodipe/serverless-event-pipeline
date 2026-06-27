@@ -1,1 +1,10 @@
-{"scripts":{"package":"serverless package"},"devDependencies":{"serverless":"^3.39.0"}}
+{
+  "scripts": {
+    "test": "node --test",
+    "validate": "./scripts/validate.sh",
+    "package": "serverless package"
+  },
+  "devDependencies": {
+    "serverless": "^3.39.0"
+  }
+}
